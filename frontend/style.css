@@ -388,3 +388,201 @@ h2 {
         width: 100%;
     }
 }
+
+/* ===============================
+   PRIORITY AND STATUS BADGES
+   =============================== */
+
+.priority-badge,
+.status-badge {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* Priority badges */
+
+.priority-low {
+    background: #d5f5e3;
+    color: #1e8449;
+}
+
+.priority-medium {
+    background: #fcf3cf;
+    color: #9a7d0a;
+}
+
+.priority-high {
+    background: #fadbd8;
+    color: #c0392b;
+}
+
+/* Status badges */
+
+.status-pending {
+    background: #fdebd0;
+    color: #ca6f1e;
+}
+
+.status-in-progress {
+    background: #d6eaf8;
+    color: #2471a3;
+}
+
+.status-completed {
+    background: #d5f5e3;
+    color: #1e8449;
+}
+
+/* ===============================
+   DEADLINE INDICATORS
+   =============================== */
+
+.deadline-overdue,
+.deadline-today,
+.deadline-soon {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.deadline-overdue {
+    background: #fadbd8;
+    color: #c0392b;
+}
+
+.deadline-today {
+    background: #fcf3cf;
+    color: #9a7d0a;
+}
+
+.deadline-soon {
+    background: #d6eaf8;
+    color: #2471a3;
+}
+
+/* Dark Mode */
+
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .header {
+    background: #1f1f1f;
+}
+
+body.dark-mode .header p {
+    color: #bdbdbd;
+}
+
+body.dark-mode .task-form-section,
+body.dark-mode .task-list-section,
+body.dark-mode .stat-card {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode h2,
+body.dark-mode .task-card h3 {
+    color: #f5f5f5;
+}
+
+body.dark-mode .stat-card h3 {
+    color: #bdbdbd;
+}
+
+body.dark-mode .stat-card p {
+    color: #f5f5f5;
+}
+
+body.dark-mode .task-card {
+    background: #252525;
+    border-color: #444;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select,
+body.dark-mode .filters input,
+body.dark-mode .filters select {
+    background: #2b2b2b;
+    color: #f5f5f5;
+    border-color: #555;
+}
+
+body.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group textarea::placeholder,
+body.dark-mode .filters input::placeholder {
+    color: #999;
+}
+
+body.dark-mode .refresh-btn,
+body.dark-mode .cancel-btn {
+    background: #333;
+    color: #f5f5f5;
+}
+
+body.dark-mode .refresh-btn:hover,
+body.dark-mode .cancel-btn:hover {
+    background: #444;
+}
+
+body.dark-mode .modal-content {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .close-btn {
+    color: #aaa;
+}
+
+body.dark-mode .close-btn:hover {
+    color: #fff;
+}
+
+body.dark-mode #emptyMessage {
+    color: #aaa;
+}
+
+
+/* Dark Mode Toggle Button */
+
+.theme-toggle {
+    border: none;
+    background: #34495e;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.theme-toggle:hover {
+    background: #46637f;
+}
+
+
+/* Header layout */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

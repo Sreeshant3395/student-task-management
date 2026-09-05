@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
 // READ - Get all tasks
 router.get("/", async (req, res) => {
     try {
-        const tasks = await Task.find().sort({ createdAt: -1 });
+        const tasks = await Task.find().sort({ deadline: 1 });
 
         res.json(tasks);
     } catch (error) {

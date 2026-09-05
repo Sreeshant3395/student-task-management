@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:5000/api/tasks";
+const themeToggle = document.getElementById("themeToggle");
 let allTasks = [];
 
 const taskForm = document.getElementById("taskForm");
@@ -80,17 +81,25 @@ function displayTasks(tasks) {
 
                 <p>
                     <strong>Deadline:</strong>
-                    ${new Date(task.deadline).toLocaleDateString()}
+                    ${new Date(task.deadline).toLocaleDateString("en-GB")}
+
+                    ${getDeadlineStatus(task.deadline, task.status)}
                 </p>
 
                 <p>
                     <strong>Priority:</strong>
-                    ${task.priority}
+                    <span class="priority-badge priority-${task.priority.toLowerCase()}">
+                        ${task.priority}
+                    </span>
                 </p>
 
                 <p>
                     <strong>Status:</strong>
-                    ${task.status}
+                    <span class="status-badge status-${task.status
+                        .toLowerCase()
+                        .replace(" ", "-")}">
+                        ${task.status}
+                    </span>
                 </p>
 
             </div>
@@ -324,6 +333,30 @@ refreshBtn.addEventListener("click", loadTasks);
 
 loadTasks();
 
+// Dark Mode Toggle
+
+themeToggle.addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        themeToggle.textContent = "☀️ Light Mode";
+        localStorage.setItem("theme", "dark");
+    } else {
+        themeToggle.textContent = "🌙 Dark Mode";
+        localStorage.setItem("theme", "light");
+    }
+});
+
+
+// Remember user's theme preference
+
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️ Light Mode";
+}
+
 // ===============================
 // UPDATE DASHBOARD STATISTICS
 // ===============================
@@ -391,3 +424,41 @@ searchInput.addEventListener("input", filterTasks);
 statusFilter.addEventListener("change", filterTasks);
 
 priorityFilter.addEventListener("change", filterTasks);
+
+// ===============================
+// DEADLINE STATUS
+// ===============================
+
+function getDeadlineStatus(deadline, status) {
+
+    // Completed tasks don't need an overdue warning
+    if (status === "Completed") {
+        return "";
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const deadlineDate = new Date(deadline);
+    deadlineDate.setHours(0, 0, 0, 0);
+
+    const difference =
+        deadlineDate.getTime() - today.getTime();
+
+    const daysRemaining =
+        Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+    if (daysRemaining < 0) {
+        return `<span class="deadline-overdue">Overdue</span>`;
+    }
+
+    if (daysRemaining === 0) {
+        return `<span class="deadline-today">Due Today</span>`;
+    }
+
+    if (daysRemaining === 1) {
+        return `<span class="deadline-soon">Due Tomorrow</span>`;
+    }
+
+    return "";
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Task Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div>
+            <h1>Student Task Management</h1>
+            <p>Organize your academic tasks in one place</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Add Task Section -->
+        <section class="task-form-section">
+
+            <h2>Add New Task</h2>
+
+            <form id="taskForm">
+
+                <div class="form-group">
+                    <label for="title">Task Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Enter task title"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        placeholder="Enter task description"
+                    ></textarea>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input
+                            type="text"
+                            id="subject"
+                            placeholder="e.g. Operating Systems"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deadline">Deadline</label>
+                        <input
+                            type="date"
+                            id="deadline"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+
+                        <select id="priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+
+                        <select id="status">
+                            <option value="Pending" selected>Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="add-btn">
+                    Add Task
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Task List Section -->
+        <section class="task-list-section">
+
+            <div class="section-header">
+                <h2>My Tasks</h2>
+
+                <button id="refreshBtn" class="refresh-btn">
+                    Refresh
+                </button>
+            </div>
+
+            <div id="taskList">
+
+                <!-- Tasks will be displayed here using JavaScript -->
+
+                <p id="emptyMessage">
+                    No tasks found. Add your first task!
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

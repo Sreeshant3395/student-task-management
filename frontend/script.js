@@ -7,6 +7,10 @@ const refreshBtn = document.getElementById("refreshBtn");
 const searchInput = document.getElementById("searchInput");
 const statusFilter = document.getElementById("statusFilter");
 const priorityFilter = document.getElementById("priorityFilter");
+const editModal = document.getElementById("editModal");
+const editTaskForm = document.getElementById("editTaskForm");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
 
 
 // ===============================
@@ -200,29 +204,59 @@ async function deleteTask(id) {
     }
 }
 
-
 // ===============================
-// EDIT TASK
+// OPEN EDIT TASK MODAL
 // ===============================
 
-async function editTask(id) {
+function editTask(id) {
 
-    const newStatus = prompt(
-        "Enter new status:\nPending\nIn Progress\nCompleted"
-    );
+    const task = allTasks.find(task => task._id === id);
 
-    if (!newStatus) {
+    if (!task) {
+        alert("Task not found.");
         return;
     }
 
-    if (
-        newStatus !== "Pending" &&
-        newStatus !== "In Progress" &&
-        newStatus !== "Completed"
-    ) {
-        alert("Invalid status.");
-        return;
-    }
+    document.getElementById("editTaskId").value = task._id;
+
+    document.getElementById("editTitle").value = task.title;
+
+    document.getElementById("editDescription").value =
+        task.description || "";
+
+    document.getElementById("editSubject").value =
+        task.subject;
+
+    document.getElementById("editDeadline").value =
+        task.deadline.split("T")[0];
+
+    document.getElementById("editPriority").value =
+        task.priority;
+
+    document.getElementById("editStatus").value =
+        task.status;
+
+    editModal.style.display = "block";
+}
+
+// ===============================
+// SAVE EDITED TASK
+// ===============================
+
+editTaskForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const id = document.getElementById("editTaskId").value;
+
+    const updatedTask = {
+        title: document.getElementById("editTitle").value,
+        description: document.getElementById("editDescription").value,
+        subject: document.getElementById("editSubject").value,
+        deadline: document.getElementById("editDeadline").value,
+        priority: document.getElementById("editPriority").value,
+        status: document.getElementById("editStatus").value
+    };
 
     try {
 
@@ -234,9 +268,7 @@ async function editTask(id) {
                 "Content-Type": "application/json"
             },
 
-            body: JSON.stringify({
-                status: newStatus
-            })
+            body: JSON.stringify(updatedTask)
         });
 
         if (!response.ok) {
@@ -245,7 +277,9 @@ async function editTask(id) {
 
         alert("Task updated successfully!");
 
-        loadTasks();
+        closeEditModal();
+
+        await loadTasks();
 
     } catch (error) {
 
@@ -253,8 +287,29 @@ async function editTask(id) {
 
         alert("Failed to update task.");
     }
+});
+
+// ===============================
+// CLOSE EDIT MODAL
+// ===============================
+
+function closeEditModal() {
+
+    editModal.style.display = "none";
+
+    editTaskForm.reset();
 }
 
+closeModalBtn.addEventListener("click", closeEditModal);
+
+cancelEditBtn.addEventListener("click", closeEditModal);
+
+editModal.addEventListener("click", function(event) {
+
+    if (event.target === editModal) {
+        closeEditModal();
+    }
+});
 
 // ===============================
 // REFRESH BUTTON

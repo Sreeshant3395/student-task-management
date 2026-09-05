@@ -175,7 +175,134 @@
         </section>
 
     </main>
+<!-- Edit Task Modal -->
+<div id="editModal" class="modal">
 
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Edit Task</h2>
+
+            <button
+                type="button"
+                id="closeModalBtn"
+                class="close-btn">
+                &times;
+            </button>
+        </div>
+
+        <form id="editTaskForm">
+
+            <input type="hidden" id="editTaskId">
+
+            <div class="form-group">
+                <label for="editTitle">Task Title</label>
+
+                <input
+                    type="text"
+                    id="editTitle"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="editDescription">Description</label>
+
+                <textarea
+                    id="editDescription"
+                ></textarea>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="editSubject">Subject</label>
+
+                    <input
+                        type="text"
+                        id="editSubject"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="editDeadline">Deadline</label>
+
+                    <input
+                        type="date"
+                        id="editDeadline"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="editPriority">Priority</label>
+
+                    <select id="editPriority">
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editStatus">Status</label>
+
+                    <select id="editStatus">
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelEditBtn"
+                    class="cancel-btn">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
     <script src="script.js"></script>
 
 </body>

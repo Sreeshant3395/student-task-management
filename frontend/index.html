@@ -20,6 +20,31 @@
 
     <main class="container">
 
+        <!-- Dashboard Statistics -->
+    <section class="stats-section">
+
+        <div class="stat-card">
+            <h3>Total Tasks</h3>
+            <p id="totalTasks">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Pending</h3>
+            <p id="pendingTasks">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>In Progress</h3>
+            <p id="inProgressTasks">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Completed</h3>
+            <p id="completedTasks">0</p>
+        </div>
+
+    </section>
+
         <!-- Add Task Section -->
         <section class="task-form-section">
 
@@ -105,12 +130,37 @@
         <section class="task-list-section">
 
             <div class="section-header">
-                <h2>My Tasks</h2>
+    <h2>My Tasks</h2>
 
-                <button id="refreshBtn" class="refresh-btn">
-                    Refresh
-                </button>
-            </div>
+    <button id="refreshBtn" class="refresh-btn">
+        Refresh
+    </button>
+</div>
+
+<!-- Search and Filters -->
+<div class="filters">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search tasks..."
+    >
+
+    <select id="statusFilter">
+        <option value="All">All Status</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <select id="priorityFilter">
+        <option value="All">All Priorities</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+
+</div>
 
             <div id="taskList">
 

@@ -1,8 +1,12 @@
 const API_URL = "http://localhost:5000/api/tasks";
+let allTasks = [];
 
 const taskForm = document.getElementById("taskForm");
 const taskList = document.getElementById("taskList");
 const refreshBtn = document.getElementById("refreshBtn");
+const searchInput = document.getElementById("searchInput");
+const statusFilter = document.getElementById("statusFilter");
+const priorityFilter = document.getElementById("priorityFilter");
 
 
 // ===============================
@@ -19,7 +23,9 @@ async function loadTasks() {
 
         const tasks = await response.json();
 
-        displayTasks(tasks);
+        allTasks = tasks;
+
+        displayTasks(allTasks);
 
     } catch (error) {
         console.error("Error loading tasks:", error);
@@ -33,6 +39,8 @@ async function loadTasks() {
 // ===============================
 
 function displayTasks(tasks) {
+
+    updateStatistics(tasks);
 
     if (tasks.length === 0) {
         taskList.innerHTML = `
@@ -260,3 +268,71 @@ refreshBtn.addEventListener("click", loadTasks);
 // ===============================
 
 loadTasks();
+
+// ===============================
+// UPDATE DASHBOARD STATISTICS
+// ===============================
+
+function updateStatistics(tasks) {
+
+    const totalTasks = tasks.length;
+
+    const pendingTasks = tasks.filter(
+        task => task.status === "Pending"
+    ).length;
+
+    const inProgressTasks = tasks.filter(
+        task => task.status === "In Progress"
+    ).length;
+
+    const completedTasks = tasks.filter(
+        task => task.status === "Completed"
+    ).length;
+
+    document.getElementById("totalTasks").textContent = totalTasks;
+
+    document.getElementById("pendingTasks").textContent = pendingTasks;
+
+    document.getElementById("inProgressTasks").textContent = inProgressTasks;
+
+    document.getElementById("completedTasks").textContent = completedTasks;
+}
+
+// ===============================
+// SEARCH AND FILTER TASKS
+// ===============================
+
+function filterTasks() {
+
+    const searchText = searchInput.value.toLowerCase().trim();
+
+    const selectedStatus = statusFilter.value;
+
+    const selectedPriority = priorityFilter.value;
+
+    const filteredTasks = allTasks.filter(task => {
+
+        const matchesSearch =
+            task.title.toLowerCase().includes(searchText) ||
+            task.subject.toLowerCase().includes(searchText) ||
+            (task.description || "").toLowerCase().includes(searchText);
+
+        const matchesStatus =
+            selectedStatus === "All" ||
+            task.status === selectedStatus;
+
+        const matchesPriority =
+            selectedPriority === "All" ||
+            task.priority === selectedPriority;
+
+        return matchesSearch && matchesStatus && matchesPriority;
+    });
+
+    displayTasks(filteredTasks);
+}
+
+searchInput.addEventListener("input", filterTasks);
+
+statusFilter.addEventListener("change", filterTasks);
+
+priorityFilter.addEventListener("change", filterTasks);

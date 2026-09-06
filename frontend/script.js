@@ -1,4 +1,8 @@
-const API_URL = "http://localhost:5000/api/tasks";
+const API_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5000/api/tasks"
+        : "https://student-task-management-api.onrender.com/api/tasks";
 const themeToggle = document.getElementById("themeToggle");
 let allTasks = [];
 
